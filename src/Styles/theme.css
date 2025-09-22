@@ -1,0 +1,192 @@
+/* Global Theme Styles for Campus Care */
+
+/* Import font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+:root {
+  --primary-color: #6c63ff;
+  --secondary-color: #ff758c;
+  --accent-color: #4a90e2;
+  --warning-color: #ffb347;
+
+  --text-light: #f0f0f0;
+  --text-dark: #1f2937;
+
+  --radius: 16px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #6c63ff, #ff758c, #4a90e2, #ffb347);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* Background gradient animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating shapes */
+.bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.5;
+  animation: float 8s ease-in-out infinite alternate;
+}
+
+.shape1 {
+  width: 300px;
+  height: 300px;
+  top: -100px;
+  left: -100px;
+  background: var(--primary-color);
+}
+.shape2 {
+  width: 250px;
+  height: 250px;
+  bottom: -120px;
+  right: -100px;
+  background: var(--secondary-color);
+}
+.shape3 {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 60%;
+  transform: translateY(-50%);
+  background: var(--accent-color);
+}
+
+@keyframes float {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-40px); }
+}
+
+/* Glass card */
+.card,
+.login-card,
+.signup-card,
+.forgot-card {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius);
+  padding: 40px;
+  width: 400px;
+  max-width: 92%;
+  color: var(--text-light);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  text-align: center;
+  animation: fadeUp 0.8s ease forwards;
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+@keyframes fadeUp {
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.card h2,
+.login-card h2,
+.signup-card h2,
+.forgot-card h2 {
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 8px rgba(108, 99, 255, 0.8);
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(108, 99, 255, 0.6);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 20px rgba(108, 99, 255, 0.9);
+}
+
+/* Error and info messages */
+.error-msg {
+  color: #ffb3b3;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+.info-msg {
+  color: #b3e5fc;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+/* Switch link (between login/signup) */
+.switch-link,
+.forgot-link {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.switch-link a,
+.forgot-link a {
+  color: var(--warning-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switch-link a:hover,
+.forgot-link a:hover {
+  text-decoration: underline;
+}

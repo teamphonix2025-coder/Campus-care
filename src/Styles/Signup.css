@@ -1,0 +1,124 @@
+@import url("./theme.css");
+
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+}
+
+.signup-card {
+  background: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+  width: 360px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.signup-card h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000; /* Same fix for heading */
+}
+
+.signup-card .subtitle {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.signup-card input {
+  background: #f9f9f9;   /* light gray background */
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #222 !important;   /* ensure text is visible */
+}
+
+.signup-card input::placeholder {
+  color: #888;   /* placeholder text */
+}
+
+.signup-card input:focus {
+  border-color: #7b2ff7;
+  box-shadow: 0px 0px 5px rgba(123, 47, 247, 0.5);
+}
+
+.signup-card button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #ff758c, #ff7eb3);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.signup-card button:hover {
+  background-color: rgb(255, 34, 71);
+  
+}
+
+.switch-link {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.switch-link a {
+  color: #ff4b2b;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switch-link a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* For headings */
+.login-card h2,
+.signup-card h2 {
+  margin-bottom: 10px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a !important;   /* Very dark gray */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); /* makes text stand out */
+}
+.switch-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.switch-link p {
+  font-size: 14px;
+  color: #555;
+}
+
+.switch-link a {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.switch-link a:hover {
+  text-decoration: underline;
+}
+
