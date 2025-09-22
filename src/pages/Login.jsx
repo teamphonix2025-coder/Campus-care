@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import API from "../services/api";
 import { Link } from "react-router-dom";
 import "../Styles/Login.css";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -56,6 +58,8 @@ export default function Login() {
           <Link to="/signup" className="text-green-600 font-semibold">
             Sign up
           </Link>
+          <Link to="/forgot-password">Forgot Password?</Link>
+
         </p>
       </form>
     </div>

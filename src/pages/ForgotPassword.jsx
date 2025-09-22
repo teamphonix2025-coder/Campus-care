@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import API from "../services/api";
 import { Link } from "react-router-dom";
 import "../Styles/ForgotPassword.css";
+import { useNavigate } from "react-router-dom";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");

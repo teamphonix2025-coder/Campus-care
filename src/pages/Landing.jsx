@@ -3,35 +3,18 @@ import videoBg from "../assets/calm.mp4";
 import "../Styles/Landing.css";
 import Login from "./Login";
 
-const Landing = () => {
+export default function Landing() {
   const navigate = useNavigate();
 
-  const handleNext = () => {
-    navigate(<Login></Login>); // go to Login page when button is clicked
-  };
-
   return (
-    <div className="landing-container">
-      {/* Background Video */}
-      <video
-        className="landing-video"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/assets/bg-video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+    <div className="landing">
+      <video autoPlay loop muted className="bg-video">
+        <source src={videoBg} type="video/mp4" />
       </video>
-
-      {/* Overlay Content */}
-      <div className="landing-card">
-        <h1>Welcome to Campus Camp 🌿</h1>
-        <p>
-          A smooth way to experience login & signup with a stunning background.
-        </p>
-        <button onClick={handleNext}>Next →</button>
+      <div className="overlay">
+        <h1>Welcome to Campus Care</h1>
+        <button onClick={() => navigate("/login")}>Next</button>
       </div>
     </div>
   );
-};
+}

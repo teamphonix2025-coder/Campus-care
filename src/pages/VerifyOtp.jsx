@@ -2,28 +2,22 @@
 import React, { useState } from "react";
 import API from "../services/api";
 import "../Styles/VerifyOtp.css";
+import { useNavigate } from "react-router-dom";
 
 function VerifyOtp() {
   const [otp, setOtp] = useState("");
   const [msg, setMsg] = useState("");
 
-  const handleVerify = async (e) => {
-    e.preventDefault();
-    try {
-      const email = localStorage.getItem("pendingEmail");
-      const res = await API.post("/auth/verify-otp", { email, otp });
-      
-      setMsg(res.data.msg);
+  const handleOtpVerify = async () => {
+  try {
+    const res = await API.post("/auth/verify-otp", { email, otp });
+    localStorage.setItem("token", res.data.token);
+    navigate("/dashboard");
+  } catch (err) {
+    setMsg("Invalid OTP");
+  }
+};
 
-      if (res.data.success) {
-        // OTP success → allow login
-        localStorage.removeItem("pendingEmail");
-        window.location.href = "/login";
-      }
-    } catch (err) {
-      setMsg(err.response?.data?.msg || "Invalid OTP");
-    }
-  };
 
   return (
     <div className="page-container">

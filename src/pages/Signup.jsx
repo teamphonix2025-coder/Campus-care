@@ -2,23 +2,29 @@ import React, { useState } from "react";
 import API from "../services/api";
 import { Link } from "react-router-dom";
 import "../Styles/Signup.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [nickname, setNickname] = useState("");
+  const [collegeName, setCollegeName] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
-    e.preventDefault();
-    try {
-      await API.post("/auth/register", { email, password, nickname });
-      navigate("/auth");
-    } catch (err) {
-      setMsg(err.response?.data?.msg || "Signup failed");
-    }
-  };
+  e.preventDefault();
+  try {
+    const res = await API.post("/auth/signup", { name, nickname, email, password });
+    // redirect to OTP page with email param
+   navigate(`/verify-otp?email=${email}`);
+
+  } catch (err) {
+    setMsg(err.response?.data?.msg || "Signup failed");
+  }
+};
+
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -28,6 +34,14 @@ export default function Signup() {
       >
         <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
         {msg && <p className="text-red-500 text-sm">{msg}</p>}
+         <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setNickname(e.target.value)}
+          className="w-full mb-3 p-2 border rounded"
+          required
+        />
         <input
           type="text"
           placeholder="Nickname"
@@ -52,6 +66,14 @@ export default function Signup() {
           className="w-full mb-3 p-2 border rounded"
           required
         />
+         <input
+          type="text"
+          placeholder="College Name"
+          value={collegeName}
+          onChange={(e) => setNickname(e.target.value)}
+          className="w-full mb-3 p-2 border rounded"
+          required
+        />
         <button
           type="submit"
           className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
@@ -60,7 +82,7 @@ export default function Signup() {
         </button>
         <p className="mt-3 text-sm text-center">
           Already have an account?{" "}
-          <Link to="/auth" className="text-green-600 font-semibold">
+          <Link to="/login" className="text-green-600 font-semibold">
             Login
           </Link>
         </p>
