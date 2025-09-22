@@ -27,10 +27,10 @@ export default function Signup() {
 
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="signup-container">
       <form
         onSubmit={handleSignup}
-        className="bg-white p-6 rounded-xl shadow-md w-80"
+        className="signup-form"
       >
         <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
         {msg && <p className="text-red-500 text-sm">{msg}</p>}
@@ -38,7 +38,7 @@ export default function Signup() {
           type="text"
           placeholder="Name"
           value={name}
-          onChange={(e) => setNickname(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           className="w-full mb-3 p-2 border rounded"
           required
         />
@@ -70,7 +70,7 @@ export default function Signup() {
           type="text"
           placeholder="College Name"
           value={collegeName}
-          onChange={(e) => setNickname(e.target.value)}
+          onChange={(e) => setCollegeName(e.target.value)}
           className="w-full mb-3 p-2 border rounded"
           required
         />

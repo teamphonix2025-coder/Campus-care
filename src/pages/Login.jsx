@@ -24,12 +24,12 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="login-container">
       <form
         onSubmit={handleLogin}
-        className="bg-white p-6 rounded-xl shadow-md w-80"
+        className="login-form"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+        <h2>Login</h2>
         {msg && <p className="text-red-500 text-sm">{msg}</p>}
         <input
           type="email"
@@ -53,14 +53,21 @@ export default function Login() {
         >
           Login
         </button>
-        <p className="mt-3 text-sm text-center">
+      <div className="helper-block">
+        <p className="signup-note">
           Don’t have an account?{" "}
-          <Link to="/signup" className="text-green-600 font-semibold">
+          <Link to="/signup" className="signup-link">
             Sign up
           </Link>
-          <Link to="/forgot-password">Forgot Password?</Link>
-
         </p>
+        <p className="forgot-note">
+          <Link to="/forgot-password" className="forgot-link">
+            Forgot Password?
+          </Link>
+        </p>
+      </div>
+
+
       </form>
     </div>
   );

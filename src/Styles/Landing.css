@@ -1,18 +1,17 @@
-/* Landing.css */
-
-.landing-container {
+.landing {
   position: relative;
   height: 100vh;
   width: 100%;
   overflow: hidden;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  background: black;
+  color: white;
   text-align: center;
-  color: #fff;
 }
 
-.landing-video {
+.landing video {
   position: absolute;
   top: 0;
   left: 0;
@@ -20,59 +19,26 @@
   height: 100%;
   object-fit: cover;
   z-index: -1;
-  filter: brightness(0.6); /* darken video slightly for text visibility */
 }
 
-.landing-card {
+.landing .overlay {
   position: relative;
-  z-index: 2;
-  background: rgba(0, 0, 0, 0.45); /* subtle dark overlay */
-  padding: 2rem 3rem;
-  border-radius: 16px;
-  animation: fadeIn 1.5s ease-in-out;
+  z-index: 1;
 }
 
-.landing-card h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #f1f1f1;
-}
-
-.landing-card p {
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  color: #ddd;
-}
-
-/* Next Button Styling */
-.landing-card button {
-  padding: 0.6rem 1.8rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-  background: linear-gradient(90deg, #4f46e5, #3b82f6);
+.landing button {
+  margin-top: 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 999px; /* pill-shape */
+  border-radius: 8px;
+  background: linear-gradient(90deg, #6366f1, #3b82f6);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
 }
 
-.landing-card button:hover {
-  background: linear-gradient(90deg, #4338ca, #2563eb);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-}
-
-/* Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.landing button:hover {
+  transform: scale(1.05);
 }

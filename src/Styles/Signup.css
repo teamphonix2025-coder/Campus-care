@@ -1,124 +1,53 @@
-@import url("./theme.css");
-
-.page-container {
+.signup-container {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  background-color: #f5f5f5;
 }
 
-.signup-card {
-  background: #fff;
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
-  width: 360px;
+.signup-form {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.signup-form h2 {
   text-align: center;
-  animation: fadeIn 1s ease-in-out;
+  margin-bottom: 16px;
+  color: #333;
 }
 
-.signup-card h2 {
-  margin-bottom: 10px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #000000; /* Same fix for heading */
-}
-
-.signup-card .subtitle {
-  font-size: 14px;
-  margin-bottom: 20px;
-  color: #555;
-}
-
-.signup-card input {
-  background: #f9f9f9;   /* light gray background */
+.signup-form input {
+  padding: 12px;
   border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
-  color: #222 !important;   /* ensure text is visible */
+  color:black;
 }
 
-.signup-card input::placeholder {
-  color: #888;   /* placeholder text */
-}
-
-.signup-card input:focus {
-  border-color: #7b2ff7;
-  box-shadow: 0px 0px 5px rgba(123, 47, 247, 0.5);
-}
-
-.signup-card button {
-  width: 100%;
+.signup-form button {
   padding: 12px;
-  margin-top: 15px;
+  background-color: #10b981;
+  color: white;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(90deg, #ff758c, #ff7eb3);
-  color: #fff;
-  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s;
 }
 
-.signup-card button:hover {
-  background-color: rgb(255, 34, 71);
-  
+.signup-form button:hover {
+  background-color: #059669;
 }
 
-.switch-link {
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-.switch-link a {
-  color: #ff4b2b;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.switch-link a:hover {
-  text-decoration: underline;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* For headings */
-.login-card h2,
-.signup-card h2 {
-  margin-bottom: 10px;
-  font-size: 26px;
-  font-weight: 700;
-  color: #1a1a1a !important;   /* Very dark gray */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); /* makes text stand out */
-}
-.switch-link {
+.signup-form p {
+  color: red;
   text-align: center;
-  margin-top: 15px;
-}
-
-.switch-link p {
   font-size: 14px;
-  color: #555;
 }
-
-.switch-link a {
-  color: #007bff;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.switch-link a:hover {
-  text-decoration: underline;
-}
-
