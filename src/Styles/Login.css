@@ -8,6 +8,7 @@
 
 .login-form {
   background: white;
+  color: black;
   padding: 32px;
   border-radius: 12px;
   width: 360px;
@@ -28,6 +29,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 14px;
+  color: black;
 }
 
 .login-form button {

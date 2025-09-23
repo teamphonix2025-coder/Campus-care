@@ -2,43 +2,66 @@
 import React, { useState } from "react";
 import API from "../services/api";
 import "../Styles/VerifyOtp.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
-function VerifyOtp() {
+export default function VerifyOtp() {
   const [otp, setOtp] = useState("");
   const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleOtpVerify = async () => {
-  try {
-    const res = await API.post("/auth/verify-otp", { email, otp });
-    localStorage.setItem("token", res.data.token);
-    navigate("/dashboard");
-  } catch (err) {
-    setMsg("Invalid OTP");
-  }
-};
+  // get email from query param
+  const queryParams = new URLSearchParams(location.search);
+  const email = queryParams.get("email");
+  const previewUrl = localStorage.getItem("otpPreviewUrl");
+  console.log("Preview URL from storage:", previewUrl);
 
+
+  const handleVerify = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await API.post("/auth/verify", { email, otp });
+      setMsg("Verification successful! You can now login.");
+      // redirect to login after short delay
+      setTimeout(() => navigate("/login"), 2000);
+    } catch (err) {
+      setMsg(err.response?.data?.msg || "Verification failed");
+    }
+  };
 
   return (
-    <div className="page-container">
-      <div className="verify-card">
-        <h2>Verify Your Email 📧</h2>
-        <p className="subtitle">Enter the OTP sent to your email</p>
+    <div className="verify-container">
+      <form onSubmit={handleVerify} className="verify-form">
+        <h2 className="text-2xl font-bold mb-4 text-center">Verify OTP</h2>
+        {msg && <p className="text-red-500 text-sm">{msg}</p>}
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          className="w-full mb-3 p-2 border rounded"
+          required
+        />
+        <button
+          type="submit"
+          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
+        >
+          Verify
+        </button>
+        
+        {previewUrl && (
+            <a
+              href={previewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 underline block mt-3 text-center"
+            >
+              View OTP Email
+            </a>
+          )}
 
-        <form onSubmit={handleVerify}>
-          <input
-            type="text"
-            placeholder="Enter OTP"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            required
-          />
-          {msg && <p className="error-msg">{msg}</p>}
-          <button type="submit">Verify</button>
-        </form>
-      </div>
+
+      </form>
     </div>
   );
 }
-
-export default VerifyOtp;

@@ -15,7 +15,7 @@ const app = express();
 
 // CORS configuration: allow requests from your React dev server
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5174',
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',
   credentials: true
 }));
 

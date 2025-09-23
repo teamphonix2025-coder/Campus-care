@@ -13,18 +13,29 @@ export default function Signup() {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
-  const handleSignup = async (e) => {
+   const handleSignup = async (e) => {
   e.preventDefault();
   try {
-    const res = await API.post("/auth/signup", { name, nickname, email, password });
-    // redirect to OTP page with email param
-   navigate(`/verify-otp?email=${email}`);
+    const res = await API.post("/auth/signup", { 
+      realName: name, 
+      nickname, 
+      email, 
+      password, 
+      college: collegeName 
+    });
 
+    console.log("Signup response:", res.data);   
+    // ✅ Save preview email URL for VerifyOtp page
+    if (res.data.debugPreviewUrl) {
+      localStorage.setItem("otpPreviewUrl", res.data.debugPreviewUrl);
+    }
+
+    // redirect to verify page
+    navigate(`/verify-otp?email=${email}`);
   } catch (err) {
     setMsg(err.response?.data?.msg || "Signup failed");
   }
 };
-
 
   return (
     <div className="signup-container">
