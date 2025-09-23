@@ -23,53 +23,45 @@ function genOtp() {
 }
 
 // ---------------- SIGNUP ----------------
+// inside routes/auth.js
 router.post("/signup", async (req, res) => {
   try {
-    const { realName, nickname, college, email, password } = req.body;
-
+    const { realName, nickname, email, password, college } = req.body;
     if (!realName || !nickname || !college || !email || !password) {
       return res.status(400).json({ msg: "Missing required fields" });
     }
 
-    // Check if user already exists
     const existing = await User.findOne({ email: email.toLowerCase() });
     if (existing) return res.status(400).json({ msg: "Email already registered" });
 
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(password, salt);
 
     const otp = genOtp();
     const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
-    // Create new user (unverified)
     const user = new User({
       realName,
       nickname,
       college,
       email: email.toLowerCase(),
       password: hashed,
-      verified: false,
+      isVerified: false,   // <- correct
       otp,
       otpExpires,
     });
 
     await user.save();
 
-    // Send OTP email
     const subject = "CampusCare — verify your email";
-    const text = `Hello ${nickname},\n\nYour verification OTP is: ${otp}\nThis code expires in 10 minutes.\n\nIf you didn't request this, ignore this email.`;
+    const text = `Hello ${nickname},\n\nYour verification OTP is: ${otp}\nThis code expires in 10 minutes.`;
+    const html = `<p>Hello ${nickname},</p><p>Your OTP is <b>${otp}</b>. It expires in 10 minutes.</p>`;
 
-    const previewUrl = await sendMail({
-      to: email,
-      subject,
-      text,
-      html: `<p>Hello ${nickname},</p><p>Your OTP is <b>${otp}</b>. It expires in 10 minutes.</p>`,
-    });
+    const previewUrl = await sendMail({ to: email, subject, text, html });
 
     return res.status(201).json({
       msg: "Signup successful. Check your email for OTP.",
-      debugPreviewUrl: previewUrl, // Will be Ethereal link in dev
+      debugPreviewUrl: previewUrl,
     });
   } catch (err) {
     console.error("Signup error:", err);
@@ -77,8 +69,9 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+
 // ---------------- VERIFY OTP ----------------
-router.post("/verify", async (req, res) => {
+router.post("/verify-otp", async (req, res) => {
   try {
     const { email, otp } = req.body;
     if (!email || !otp) return res.status(400).json({ msg: "Missing email or otp" });
@@ -91,7 +84,7 @@ router.post("/verify", async (req, res) => {
     if (user.otpExpires < new Date()) return res.status(400).json({ msg: "OTP expired" });
 
     // Mark verified
-    user.verified = true;
+    user.isVerified = true;
     user.otp = null;
     user.otpExpires = null;
     await user.save();
@@ -111,7 +104,7 @@ router.post("/login", async (req, res) => {
 
     const user = await User.findOne({ email: email.toLowerCase() });
     if (!user) return res.status(400).json({ msg: "User not found" });
-    if (!user.verified) return res.status(401).json({ msg: "Please verify your email first" });
+    if (!user.isVerified) return res.status(401).json({ msg: "Please verify your email first" });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
@@ -146,6 +139,8 @@ router.post("/forgot", async (req, res) => {
 
     const subject = "CampusCare — password reset OTP";
     const text = `Hi ${user.nickname},\n\nYour password reset OTP is: ${otp}\nIt expires in 10 minutes.`;
+    const html = `<p>Hi ${user.nickname},</p>
+           <p>Your password reset OTP is <b>${otp}</b>. It expires in 10 minutes.</p>`;
 
     const previewUrl = await sendMail({ to: email, subject, text });
 

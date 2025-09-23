@@ -20,7 +20,7 @@ export default function VerifyOtp() {
   const handleVerify = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.post("/auth/verify", { email, otp });
+      const res = await API.post("/auth/verify-otp", { email, otp });
       setMsg("Verification successful! You can now login.");
       // redirect to login after short delay
       setTimeout(() => navigate("/login"), 2000);
@@ -50,15 +50,14 @@ export default function VerifyOtp() {
         </button>
         
         {previewUrl && (
-            <a
-              href={previewUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 underline block mt-3 text-center"
-            >
+          <p>
+            📧 For testing, open email:{" "}
+            <a href={previewUrl} target="_blank" rel="noopener noreferrer" style={{ color: "blue" }}>
               View OTP Email
             </a>
-          )}
+          </p>
+        )}
+
 
 
       </form>

@@ -33,6 +33,7 @@ export default function Signup() {
     // redirect to verify page
     navigate(`/verify-otp?email=${email}`);
   } catch (err) {
+    console.error("Signup error:", err.response?.data || err.message);
     setMsg(err.response?.data?.msg || "Signup failed");
   }
 };
@@ -45,46 +46,61 @@ export default function Signup() {
       >
         <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
         {msg && <p className="text-red-500 text-sm">{msg}</p>}
-         <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full mb-3 p-2 border rounded"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Nickname"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          className="w-full mb-3 p-2 border rounded"
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-3 p-2 border rounded"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-3 p-2 border rounded"
-          required
-        />
-         <input
-          type="text"
-          placeholder="College Name"
-          value={collegeName}
-          onChange={(e) => setCollegeName(e.target.value)}
-          className="w-full mb-3 p-2 border rounded"
-          required
-        />
+          <input
+              type="text"
+              id="realName"
+              name="realName"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full mb-3 p-2 border rounded"
+              required
+            />
+
+            <input
+              type="text"
+              id="nickname"
+              name="nickname"
+              placeholder="Nickname"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              className="w-full mb-3 p-2 border rounded"
+              required
+            />
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full mb-3 p-2 border rounded"
+              required
+            />
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full mb-3 p-2 border rounded"
+              required
+            />
+
+            <input
+              type="text"
+              id="college"
+              name="college"
+              placeholder="College Name"
+              value={collegeName}
+              onChange={(e) => setCollegeName(e.target.value)}
+              className="w-full mb-3 p-2 border rounded"
+              required
+            />
+
         <button
           type="submit"
           className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"

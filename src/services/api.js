@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API = axios.create({
   baseURL: 'http://localhost:5000/api',   // 👈 backend URL
-  timeout: 8000
+  timeout: 20000
 });
 
 export function setAuthToken(token) {

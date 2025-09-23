@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema({
   // password will be stored hashed using bcrypt (backend should never store plain text)
   password: { type: String, required: true },
 
-  verified: { type: Boolean, default: false },
+  isVerified: { type: Boolean, default: false },
 
   // OTP for email verification or password reset. Stored temporarily.
   otp: { type: String, default: null },
