@@ -46,14 +46,14 @@ router.post("/signup", async (req, res) => {
       college,
       email: email.toLowerCase(),
       password: hashed,
-      isVerified: false,   // <- correct
+      isVerified: false,
       otp,
       otpExpires,
     });
 
     await user.save();
 
-    const subject = "CampusCare — verify your email";
+    const subject = "CampusCare — Verify your email";
     const text = `Hello ${nickname},\n\nYour verification OTP is: ${otp}\nThis code expires in 10 minutes.`;
     const html = `<p>Hello ${nickname},</p><p>Your OTP is <b>${otp}</b>. It expires in 10 minutes.</p>`;
 
@@ -61,15 +61,13 @@ router.post("/signup", async (req, res) => {
 
     return res.status(201).json({
       msg: "Signup successful. Check your email for OTP.",
-      debugPreviewUrl: previewUrl,
+      ...(previewUrl && { debugPreviewUrl: previewUrl }), // only for Ethereal
     });
   } catch (err) {
     console.error("Signup error:", err);
     return res.status(500).json({ msg: "Server error" });
   }
 });
-
-
 // ---------------- VERIFY OTP ----------------
 router.post("/verify-otp", async (req, res) => {
   try {

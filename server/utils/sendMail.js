@@ -4,7 +4,7 @@ async function sendMail({ to, subject, text, html }) {
   let transporter;
 
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    // Use Ethereal when no real SMTP creds
+    // Use Ethereal for dev/test
     const testAccount = await nodemailer.createTestAccount();
 
     transporter = nodemailer.createTransport({
@@ -17,11 +17,9 @@ async function sendMail({ to, subject, text, html }) {
       },
     });
   } else {
-    // Real Gmail SMTP (if provided in .env)
+    // Use Gmail with App Password in production
     transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-      secure: false,
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -30,15 +28,21 @@ async function sendMail({ to, subject, text, html }) {
   }
 
   const info = await transporter.sendMail({
-    from: process.env.EMAIL_FROM,
+    from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
     to,
     subject,
     text,
     html,
   });
 
-  console.log("Preview URL:", nodemailer.getTestMessageUrl(info));
-  return nodemailer.getTestMessageUrl(info);
+  if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+    console.log("✅ Gmail email sent:", info.messageId);
+    return info.messageId;
+  } else {
+    const previewUrl = nodemailer.getTestMessageUrl(info);
+    console.log("📧 Ethereal preview URL:", previewUrl);
+    return previewUrl;
+  }
 }
 
 module.exports = sendMail;

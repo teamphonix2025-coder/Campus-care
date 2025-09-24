@@ -31,7 +31,8 @@ export default function Signup() {
     }
 
     // redirect to verify page
-    navigate(`/verify-otp?email=${email}`);
+    navigate(`/verify-otp?email=${encodeURIComponent(email)}`);
+
   } catch (err) {
     console.error("Signup error:", err.response?.data || err.message);
     setMsg(err.response?.data?.msg || "Signup failed");

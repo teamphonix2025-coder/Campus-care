@@ -20,7 +20,7 @@ export default function VerifyOtp() {
   const handleVerify = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.post("/auth/verify-otp", { email, otp });
+      const res = await API.post("/auth/verify-otp", {email: email.toLowerCase(), otp });
       setMsg("Verification successful! You can now login.");
       // redirect to login after short delay
       setTimeout(() => navigate("/login"), 2000);
