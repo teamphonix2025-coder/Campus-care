@@ -4,15 +4,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 
 :root {
-  --primary-color: #6c63ff;
-  --secondary-color: #ff758c;
-  --accent-color: #4a90e2;
-  --warning-color: #ffb347;
+ :root {
+  --color-primary: #0055FF;
+  --color-secondary: #FF6600;
+  --color-neutral-light: #F5F5F5;
+  --color-neutral-dark: #333333;
+  --color-error: #E53E3E;
 
-  --text-light: #f0f0f0;
-  --text-dark: #1f2937;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
 
-  --radius: 16px;
+  --border-radius: 8px;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+}
+
 }
 
 /* Reset */

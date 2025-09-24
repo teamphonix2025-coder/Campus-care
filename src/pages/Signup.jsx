@@ -3,6 +3,9 @@ import API from "../services/api";
 import { Link } from "react-router-dom";
 import "../Styles/Signup.css";
 import { useNavigate } from "react-router-dom";
+import CircleLoader from "react-spinners/CircleLoader";
+import LoaderOverlay from "../pages/LoaderOverlay.jsx";
+
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -11,10 +14,14 @@ export default function Signup() {
   const [nickname, setNickname] = useState("");
   const [collegeName, setCollegeName] = useState("");
   const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
    const handleSignup = async (e) => {
   e.preventDefault();
+  setMsg("");
+  setLoading(true);
   try {
     const res = await API.post("/auth/signup", { 
       realName: name, 
@@ -41,6 +48,7 @@ export default function Signup() {
 
   return (
     <div className="signup-container">
+       <LoaderOverlay loading={loading} />
       <form
         onSubmit={handleSignup}
         className="signup-form"
@@ -102,12 +110,12 @@ export default function Signup() {
               required
             />
 
-        <button
-          type="submit"
-          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
-        >
-          Sign Up
-        </button>
+          
+         <button type="submit" disabled={loading}>
+           Sign Up
+          </button>
+
+
         <p className="mt-3 text-sm text-center">
           Already have an account?{" "}
           <Link to="/login" className="text-green-600 font-semibold">

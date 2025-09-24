@@ -3,10 +3,15 @@ import React, { useState } from "react";
 import API from "../services/api";
 import "../Styles/VerifyOtp.css";
 import { useNavigate,useLocation } from "react-router-dom";
+import CircleLoader from "react-spinners/CircleLoader";
+import LoaderOverlay from "./LoaderOverlay.jsx";
+
 
 export default function VerifyOtp() {
   const [otp, setOtp] = useState("");
   const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,6 +24,8 @@ export default function VerifyOtp() {
 
   const handleVerify = async (e) => {
     e.preventDefault();
+      setMsg("");
+    setLoading(true)
     try {
       const res = await API.post("/auth/verify-otp", {email: email.toLowerCase(), otp });
       setMsg("Verification successful! You can now login.");
@@ -27,10 +34,14 @@ export default function VerifyOtp() {
     } catch (err) {
       setMsg(err.response?.data?.msg || "Verification failed");
     }
+    finally{
+      setLoading(false);
+    }
   };
 
   return (
     <div className="verify-container">
+      <LoaderOverlay loading={loading} />
       <form onSubmit={handleVerify} className="verify-form">
         <h2 className="text-2xl font-bold mb-4 text-center">Verify OTP</h2>
         {msg && <p className="text-red-500 text-sm">{msg}</p>}
@@ -42,21 +53,10 @@ export default function VerifyOtp() {
           className="w-full mb-3 p-2 border rounded"
           required
         />
-        <button
-          type="submit"
-          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
-        >
+         <button type="submit" disabled={loading}>
           Verify
         </button>
-        
-        {previewUrl && (
-          <p>
-            📧 For testing, open email:{" "}
-            <a href={previewUrl} target="_blank" rel="noopener noreferrer" style={{ color: "blue" }}>
-              View OTP Email
-            </a>
-          </p>
-        )}
+
 
 
 
